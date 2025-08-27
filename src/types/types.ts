@@ -25,3 +25,15 @@ export type Account = {
     nature: "DEBIT" | "CREDIT";
     isActive: boolean;
 };
+
+export type FormType = {
+  sku: string;
+  name: string;
+  price: number;
+  cost: number;
+  taxRate: number;
+  inventoryAccountId: string;
+  revenueAccountId: string;
+  cogsAccountId: string;
+  taxAccountId: string;
+};
