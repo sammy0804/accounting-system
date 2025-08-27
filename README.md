@@ -17,7 +17,7 @@ Incluye un modelo contable básico (cuentas, asientos, productos) y una semilla 
 
 ### 1. Clonar e instalar dependencias
 ```bash
-git clone <repo-url>
+git clone https://github.com/sammy0804/accounting-system.git
 cd accounting-system
 npm install
 ```
