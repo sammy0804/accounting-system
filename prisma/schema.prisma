@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/** CONTABILIDAD MUY BÁSICA **/
+enum AccountNature { 
+  DEBIT 
+  CREDIT 
+}
+
+model Account {
+  id      String        @id @default(uuid())
+  code    String        @unique
+  name    String
+  nature  AccountNature // DEBIT o CREDIT
+  isActive Boolean      @default(true)
+
+  // Lado opuesto de las relaciones con Product (usa los mismos nombres)
+  productsAsInventory Product[] @relation("ProdInv")
+  productsAsRevenue   Product[] @relation("ProdRev")
+  productsAsCogs      Product[] @relation("ProdCogs")
+  productsAsTax       Product[] @relation("ProdTax")
+
+  // líneas que apuntan a esta cuenta
+  lines   JournalLine[]
+}
+
+model JournalEntry {
+  id        String   @id @default(uuid())
+  date      DateTime @default(now())
+  reference String?
+  memo      String?
+
+  lines     JournalLine[]
+  // Sugerencia: valida balance en la app (SUM debit == SUM credit).
+}
+
+model JournalLine {
+  id        String   @id @default(uuid())
+  entryId   String
+  accountId String
+  description String?
+  debit     Decimal  @db.Decimal(18,2) @default(0)
+  credit    Decimal  @db.Decimal(18,2) @default(0)
+
+  entry     JournalEntry @relation(fields: [entryId], references: [id])
+  account   Account      @relation(fields: [accountId], references: [id])
+}
+
+
+model Product {
+  id        String   @id @default(uuid())
+  sku       String   @unique
+  name      String
+  price     Decimal  @db.Decimal(18,2)
+  cost      Decimal? @db.Decimal(18,2)
+  taxRate   Decimal  @db.Decimal(5,2) @default(0)
+
+  // FK a cuentas (pueden ser nulas si no has configurado la contabilidad de ese producto)
+  inventoryAccountId String?
+  revenueAccountId   String?
+  cogsAccountId      String?
+  taxAccountId       String?
+
+  // **Relaciones nombradas** (deben coincidir con Account)
+  inventoryAccount Account? @relation("ProdInv",  fields: [inventoryAccountId], references: [id])
+  revenueAccount   Account? @relation("ProdRev",  fields: [revenueAccountId],   references: [id])
+  cogsAccount      Account? @relation("ProdCogs", fields: [cogsAccountId],      references: [id])
+  taxAccount       Account? @relation("ProdTax",  fields: [taxAccountId],       references: [id])
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
