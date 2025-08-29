@@ -17,8 +17,8 @@ export default function AccountsList() {
             <h2 className="text-2xl font-bold">Cuentas contables</h2>
             {error && <div className="text-red-600">{error}</div>}
             <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border rounded-lg">
-                    <thead className="bg-gray-100">
+                <table className="min-w-full bg-transprent border rounded-lg">
+                    <thead className="bg-transparent">
                         <tr>
                             <th className="text-left p-2">Código</th>
                             <th className="text-left p-2">Nombre</th>

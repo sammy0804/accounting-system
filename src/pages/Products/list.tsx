@@ -44,8 +44,8 @@ export default function ProductsList() {
 
 
             <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border rounded-lg">
-                    <thead className="bg-gray-100">
+                <table className="min-w-full bg-transparent border rounded-lg">
+                    <thead className="bg-transparent">
                         <tr>
                             <th className="text-left p-2">SKU</th>
                             <th className="text-left p-2">Nombre</th>
