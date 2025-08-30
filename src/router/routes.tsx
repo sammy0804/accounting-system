@@ -5,6 +5,7 @@ import ProductNew from "../pages/Products/new";
 import AccountsList from "../pages/Accounts/list";
 import NewSale from "../pages/Journal/new-sale";
 import NewPurchase from "../pages/Journal/new-purchase";
+import NewAccount from "../pages/Accounts/new";
 
 
 export function AppRoutes() {
@@ -19,6 +20,7 @@ export function AppRoutes() {
 
 
             <Route path="/accounts" element={<AccountsList />} />
+            <Route path="/accounts/new" element={<NewAccount />} />
 
 
             <Route path="/journal/sale" element={<NewSale />} />

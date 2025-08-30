@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Accounts } from "../../services/accounts";
+import { NavLink } from "react-router-dom";
 import type { Account } from "../../types/types";
 
 
@@ -14,7 +15,10 @@ export default function AccountsList() {
 
     return (
         <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Cuentas contables</h2>
+            <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">Cuentas contables</h2>
+                <NavLink to="/accounts/new" className="btn">Nueva cuenta</NavLink>
+            </div>
             {error && <div className="text-red-600">{error}</div>}
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-transprent border rounded-lg">
