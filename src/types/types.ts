@@ -37,3 +37,19 @@ export type FormType = {
   cogsAccountId: string;
   taxAccountId: string;
 };
+
+export type JournalLine = {
+  id: string;
+  description?: string;
+  debit: number;
+  credit: number;
+  account: { id: string; code: string; name: string };
+};
+
+export type JournalEntry = {
+  id: string;
+  date: string;
+  reference?: string;
+  memo?: string;
+  lines: JournalLine[];
+};

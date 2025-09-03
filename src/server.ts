@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 //POSTS
-app.post("/accounts", async (req, res) =>{
-  try{
+app.post("/accounts", async (req, res) => {
+  try {
     const account = await prisma.account.createMany({ data: req.body });
     res.json(account);
   } catch (err) {
@@ -29,7 +29,7 @@ app.post("/products", async (req, res) => {
 
 //GETS
 // Endpoint para cuentas
-app.get("/accounts", async (req, res) => {
+app.get("/accounts", async (_, res) => {
   try {
     const accounts = await prisma.account.findMany();
     res.json(accounts);
@@ -39,7 +39,7 @@ app.get("/accounts", async (req, res) => {
 });
 
 // Endpoint para productos
-app.get("/products", async (req, res) => {
+app.get("/products", async (_, res) => {
   try {
     const products = await prisma.product.findMany();
     res.json(products);
@@ -48,21 +48,24 @@ app.get("/products", async (req, res) => {
   }
 });
 
-// Endpoint para ventas (journal)
-app.get("/journal/sale", async (req, res) => {
-  try {
-    const sales = await prisma.journal.findMany({ where: { type: "SALE" } });
-    res.json(sales);
-  } catch (err) {
-    res.status(500).json({ error: String(err) });
-  }
-});
 
-// Endpoint para compras (journal)
-app.get("/journal/purchase", async (req, res) => {
+// Endpoint para ventas (journal)
+app.get("/journals", async (_, res) => {
   try {
-    const purchases = await prisma.journal.findMany({ where: { type: "PURCHASE" } });
-    res.json(purchases);
+    const entries = await prisma.journalEntry.findMany({
+      orderBy: {
+        date: "desc",
+      },
+      include: {
+        lines:
+        {
+          include: {
+            account: true,
+          },
+        },
+      },
+    });
+    res.json(entries);
   } catch (err) {
     res.status(500).json({ error: String(err) });
   }

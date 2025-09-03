@@ -17,7 +17,7 @@ export default function AccountsList() {
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">Cuentas contables</h2>
-                <NavLink to="/accounts/new" className="btn">Nueva cuenta</NavLink>
+                <NavLink to="/accounts/new" className="px-4 py-2 bg-gray-900 text-white rounded-lg">Nueva cuenta</NavLink>
             </div>
             {error && <div className="text-red-600">{error}</div>}
             <div className="overflow-x-auto">

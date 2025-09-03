@@ -30,12 +30,6 @@ async function main() {
     create: { code: "2408", name: "IVA por pagar", nature: AccountNature.CREDIT },
   });
 
-  const cash = await prisma.account.upsert({
-    where: { code: "1105" },
-    update: {},
-    create: { code: "1105", name: "Caja", nature: AccountNature.DEBIT },
-  });
-
   // Producto de ejemplo
   await prisma.product.upsert({
     where: { sku: "SKU-001" },
@@ -52,6 +46,22 @@ async function main() {
       taxAccountId: vat.id,
     },
   });
+
+  // asiento de venta demo
+  await prisma.journalEntry.create({
+    data: {
+      date: new Date(),
+      memo: "Venta demo",
+      reference: "REF-001",
+      lines: {
+        create: [
+          { accountId: cogs.id, debit: 3000, credit: 0, description: "COGS" },
+          { accountId: inv.id,  debit: 0, credit: 3000, description: "Salida inventario" },
+        ],
+      },
+    },
+  });
+
 
   console.log("🌱 Seed ejecutado correctamente.");
 }
