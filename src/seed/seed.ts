@@ -50,11 +50,13 @@ async function main() {
   // asiento de venta demo
   await prisma.journalEntry.create({
     data: {
+      memo: "Venta de cuadernos rayados",
       date: new Date(),
-      memo: "Venta demo",
       reference: "REF-001",
       lines: {
         create: [
+          { accountId: sales.id, debit: 5950, credit: 0, description: "Cobro" },
+          { accountId: vat.id,  debit: 0, credit: 5000, description: "Ingreso" },
           { accountId: cogs.id, debit: 3000, credit: 0, description: "COGS" },
           { accountId: inv.id,  debit: 0, credit: 3000, description: "Salida inventario" },
         ],
