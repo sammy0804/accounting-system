@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { BookText, BriefcaseBusiness, ChartArea, Package } from "lucide-react";
 
 
 const linkBase = "block px-3 py-2 rounded-lg transition";
@@ -21,12 +22,12 @@ export function Sidebar() {
                 </button>
             </div>
             <nav className="px-2 space-y-1">
-                <NavLink to="/dashboard" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Dashboard" : <span title="Dashboard">🏠</span>}</NavLink>
+                <NavLink to="/dashboard" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Dashboard" : <span title="Dashboard"><ChartArea/></span>}</NavLink>
                 {open && <div className="mt-2 text-xs uppercase tracking-wide text-gray-400 px-3">Admin</div>}
-                <NavLink to="/products" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Productos" : <span title="Productos">📦</span>}</NavLink>
-                <NavLink to="/accounts" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Cuentas" : <span title="Cuentas">💼</span>}</NavLink>
+                <NavLink to="/products" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Productos" : <span title="Productos"><Package/></span>}</NavLink>
+                <NavLink to="/accounts" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Cuentas" : <span title="Cuentas"><BriefcaseBusiness/></span>}</NavLink>
                 {open && <div className="mt-2 text-xs uppercase tracking-wide text-gray-400 px-3">Asientos contables</div>}
-                <NavLink to="/journal" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Diario" : <span title="Diario">📗</span>}</NavLink>
+                <NavLink to="/journal" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Diario" : <span title="Diario"><BookText/></span>}</NavLink>
                 {/* <NavLink to="/journal/sale" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Venta" : <span title="Venta">🛒</span>}</NavLink>
                 <NavLink to="/journal/purchase" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Compra" : <span title="Compra">🧾</span>}</NavLink> */}
             </nav>
