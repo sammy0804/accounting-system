@@ -49,9 +49,10 @@ export default function ProductsList() {
                         <tr>
                             <th className="text-left p-2">SKU</th>
                             <th className="text-left p-2">Nombre</th>
-                            <th className="text-right p-2">Precio</th>
-                            <th className="text-right p-2">Costo</th>
+                            <th className="text-right p-2">Cantidad</th>
+                            <th className="text-right p-2">Costo (unitario)</th>
                             <th className="text-right p-2">IVA %</th>
+                            <th className="text-right p-2">Precio</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,9 +60,10 @@ export default function ProductsList() {
                             <tr key={p.id} className="border-t">
                                 <td className="p-2 font-mono">{p.sku}</td>
                                 <td className="p-2">{p.name}</td>
-                                <td className="p-2 text-right">{Number(p.price).toLocaleString()}</td>
+                                <td className="p-2 text-right">{Number(p.qtyOnHand ?? 0).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.cost ?? 0).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.taxRate).toLocaleString()}</td>
+                                <td className="p-2 text-right">{Number(p.price).toLocaleString()}</td>
                             </tr>
                         ))}
                     </tbody>

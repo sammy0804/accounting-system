@@ -68,6 +68,8 @@ model Product {
   cost      Decimal? @db.Decimal(18,2)
   taxRate   Decimal  @db.Decimal(5,2) @default(0)
 
+  qtyOnHand Decimal  @db.Decimal(18,2) @default(0)
+
   // FK a cuentas (pueden ser nulas si no has configurado la contabilidad de ese producto)
   inventoryAccountId String?
   revenueAccountId   String?

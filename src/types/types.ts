@@ -8,6 +8,7 @@ export type Product = {
     price: number; // Decimal como number para la UI
     cost?: number | null;
     taxRate: number;
+    qtyOnHand: number;
     inventoryAccountId?: ID | null;
     revenueAccountId?: ID | null;
     cogsAccountId?: ID | null;

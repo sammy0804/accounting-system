@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { BookText, BriefcaseBusiness, ChartArea, Package } from "lucide-react";
+import { BookText, BriefcaseBusiness, ChartArea, Package, ScrollText, ShoppingCart } from "lucide-react";
 
 
 const linkBase = "block px-3 py-2 rounded-lg transition";
@@ -28,8 +28,8 @@ export function Sidebar() {
                 <NavLink to="/accounts" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Cuentas" : <span title="Cuentas"><BriefcaseBusiness/></span>}</NavLink>
                 {open && <div className="mt-2 text-xs uppercase tracking-wide text-gray-400 px-3">Asientos contables</div>}
                 <NavLink to="/journal" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Diario" : <span title="Diario"><BookText/></span>}</NavLink>
-                {/* <NavLink to="/journal/sale" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Venta" : <span title="Venta">🛒</span>}</NavLink>
-                <NavLink to="/journal/purchase" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Compra" : <span title="Compra">🧾</span>}</NavLink> */}
+                <NavLink to="/journal/sale" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Nueva Venta" : <span title="Venta"><ShoppingCart/></span>}</NavLink>
+                <NavLink to="/journal/purchase" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Nueva Compra" : <span title="Compra"><ScrollText/></span>}</NavLink>
             </nav>
         </aside>
     );
