@@ -46,7 +46,7 @@ export default function ProductsList() {
                             <th className="text-right p-2">Costo (unitario)</th>
                             <th className="text-right p-2">IVA %</th>
                             <th className="text-right p-2">Precio</th>
-                            <th className="text-right p-2">Acciones</th>
+                            <th className="text-center p-2">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,8 +58,8 @@ export default function ProductsList() {
                                 <td className="p-2 text-right">{Number(p.cost ?? 0).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.taxRate).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.price).toLocaleString()}</td>
-                                <td className="p-2 flex gap-1">
-                                    <button className="px-3 py-2 bg-red-700 text-white rounded-lg"><Trash size={16}/></button>
+                                <td className="p-2 text-center">
+                                    <button className="px-3 py-2 bg-red-700 text-white rounded-lg cursor-pointer hover:bg-red-600"><Trash size={16}/></button>
                                 </td>
                             </tr>
                         ))}

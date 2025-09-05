@@ -38,8 +38,8 @@ export default function AccountsList() {
                                 <td className="p-2">{a.name}</td>
                                 <td className="p-2">{a.nature}</td>
                                 <td className="p-2 flex gap-1">
-                                    <button className="px-3 py-2 bg-red-700 text-white rounded-lg"><Trash size={16}/></button>
-                                    <button className="px-3 py-2 bg-gray-900 text-white rounded-lg"><SquarePen size={16}/></button>
+                                    <button className="px-3 py-2 bg-red-700 text-white rounded-lg cursor-pointer hover:bg-red-600"><Trash size={16}/></button>
+                                    <button className="px-3 py-2 bg-gray-900 text-white rounded-lg cursor-pointer hover:bg-gray-700"><SquarePen size={16}/></button>
                                 </td>
                             </tr>
                         ))}
