@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Products } from "../../services/products";
 import type { Product } from "../../types/types";
+import { Trash } from "lucide-react";
 
 
 export default function ProductsList() {
     const [items, setItems] = useState<Product[]>([]);
-    const [q, setQ] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -15,12 +15,12 @@ export default function ProductsList() {
         try {
             setLoading(true);
             setError(null);
-            const data = await Products.list(q || undefined);
+            const data = await Products.list();
             setItems(data);
         } catch (e: unknown) {
             setError((e as Error).message);
         } finally { setLoading(false); }
-    }, [q, setLoading, setError, setItems]);
+    }, [ setLoading, setError, setItems]);
 
     useEffect(() => { load(); }, [load]);
 
@@ -31,13 +31,6 @@ export default function ProductsList() {
                 <h2 className="text-2xl font-bold">Productos</h2>
                 <Link to="/products/new" className="px-3 py-2 bg-gray-900 text-white rounded-lg">Nuevo</Link>
             </div>
-
-
-            <div className="flex gap-2">
-                <input className="border rounded-lg px-3 py-2 w-72" placeholder="Buscar por nombre o SKU" value={q} onChange={e => setQ(e.target.value)} />
-                <button onClick={load} className="px-3 py-2 border rounded-lg">Buscar</button>
-            </div>
-
 
             {loading && <div>Cargando…</div>}
             {error && <div className="text-red-600">{error}</div>}
@@ -53,6 +46,7 @@ export default function ProductsList() {
                             <th className="text-right p-2">Costo (unitario)</th>
                             <th className="text-right p-2">IVA %</th>
                             <th className="text-right p-2">Precio</th>
+                            <th className="text-right p-2">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +58,9 @@ export default function ProductsList() {
                                 <td className="p-2 text-right">{Number(p.cost ?? 0).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.taxRate).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.price).toLocaleString()}</td>
+                                <td className="p-2 flex gap-1">
+                                    <button className="px-3 py-2 bg-red-700 text-white rounded-lg"><Trash size={16}/></button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

@@ -26,7 +26,7 @@ export default function NewAccount() {
   return (
     <div>
       <NavLink to="/accounts" className="flex gap-1.5 mb-4"><LucideChevronLeft />Volver</NavLink>
-      <form onSubmit={onSubmit} className="space-y-4 max-w-md bg-white p-6 rounded-lg border border-black">
+      <form onSubmit={onSubmit} className="space-y-4 max-w-md p-6 rounded-lg border border-black">
         <h2 className="text-2xl font-bold text-black mb-2">Nueva cuenta</h2>
         {msg && <div className="text-green-700">{msg}</div>}
         {error && <div className="text-red-600">{error}</div>}
