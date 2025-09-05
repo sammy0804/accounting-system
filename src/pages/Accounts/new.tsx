@@ -1,21 +1,26 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { LucideChevronLeft } from "lucide-react";
+import { Accounts } from "../../services/accounts";
+import type { Account, nature } from "../../types/types";
 
 export default function NewAccount() {
-  const [form, setForm] = useState({ code: "", name: "", nature: "" });
+  const nav = useNavigate();
+
+  const [form, setForm] = useState<Partial<Account>>({ code: "", name: "", nature: "" });
   const [msg, setMsg] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMsg(null); setError(null);
     try {
+      setSaving(true); setError(null);
+      await Accounts.create(form);
       setMsg("Cuenta creada ✔");
-      setForm({ code: "", name: "", nature: "" });
-    } catch (err: unknown) {
-      setError((err as Error).message || "Error al crear cuenta");
-    }
+      nav("/accounts");
+    } catch (e: unknown) { setError((e as Error).message); } finally { setSaving(false); }
   }
 
   return (
@@ -34,10 +39,21 @@ export default function NewAccount() {
           <input type="text" className="border border-black rounded-lg px-3 py-2 w-full bg-white text-black" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
         </div>
         <div>
-          <label className="block text-sm text-black">Naturaleza</label>
-          <input type="text" className="border border-black rounded-lg px-3 py-2 w-full bg-white text-black" value={form.nature} onChange={e => setForm({ ...form, nature: e.target.value })} required />
+          <label className="block text-sm text-black">Tipo de cuenta</label>
+          <select
+            className="border border-black rounded-lg px-3 py-2 w-full bg-white text-black"
+            value={form.nature}
+            onChange={e => setForm({ ...form, nature: e.target.value as nature })}
+            required
+          >
+            <option value="">— Seleccionar —</option>
+            <option value="DEBIT">Débito</option>
+            <option value="CREDIT">Crédito</option>
+          </select>
         </div>
-        <button type="submit" className="btn mt-4 p-2 border rounded-2xl bg-black text-white font-bold">Crear cuenta</button>
+        <button disabled={saving} className="px-4 py-2 bg-gray-900 text-white rounded-lg">
+          {saving ? "Guardando…" : "Guardar"}
+        </button>
       </form>
     </div>
   );

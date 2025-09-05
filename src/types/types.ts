@@ -1,5 +1,6 @@
 export type ID = string;
 
+export type nature = "DEBIT" | "CREDIT" | "";
 
 export type Product = {
     id: ID;
@@ -23,7 +24,7 @@ export type Account = {
     id: ID;
     code: string;
     name: string;
-    nature: "DEBIT" | "CREDIT";
+    nature: nature;
     isActive: boolean;
 };
 

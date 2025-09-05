@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Accounts } from "../../services/accounts";
 import { NavLink } from "react-router-dom";
 import type { Account } from "../../types/types";
+import { SquarePen, Trash } from "lucide-react";
 
 
 export default function AccountsList() {
@@ -26,7 +27,8 @@ export default function AccountsList() {
                         <tr>
                             <th className="text-left p-2">Código</th>
                             <th className="text-left p-2">Nombre</th>
-                            <th className="text-left p-2">Naturaleza</th>
+                            <th className="text-left p-2">Tipo de cuenta</th>
+                            <th className="text-left p-2">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +37,10 @@ export default function AccountsList() {
                                 <td className="p-2 font-mono">{a.code}</td>
                                 <td className="p-2">{a.name}</td>
                                 <td className="p-2">{a.nature}</td>
+                                <td className="p-2 flex gap-1">
+                                    <button className="px-3 py-2 bg-red-700 text-white rounded-lg"><Trash size={16}/></button>
+                                    <button className="px-3 py-2 bg-gray-900 text-white rounded-lg"><SquarePen size={16}/></button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

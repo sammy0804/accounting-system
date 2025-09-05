@@ -4,4 +4,5 @@ import type { Account } from "../types/types";
 
 export const Accounts = {
     list: () => http.get<Account[]>("/accounts"),
+    create: (data: Partial<Account>) => http.post<Account>("/accounts", data),
 };
