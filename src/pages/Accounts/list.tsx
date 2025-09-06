@@ -9,7 +9,19 @@ export default function AccountsList() {
     const [items, setItems] = useState<Account[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-
+const handleDelete = async (id: string) => {
+  if (!window.confirm("¿Seguro que deseas eliminar esta cuenta?")) return;
+  try {
+    await Accounts.delete(id);
+    setItems(items.filter(a => a.id !== id));
+  } catch (err: any) {
+   if (err.message && err.message.includes("Foreign key constraint")) {
+    alert("No se puede eliminar esta cuenta porque está siendo utilizada en otros registros.");
+  } else {
+    alert("Error al eliminar la cuenta.");
+  }
+}
+}
     useEffect(() => {
         Accounts.list().then(setItems).catch(e => setError(String(e)));
     }, []);
@@ -38,7 +50,7 @@ export default function AccountsList() {
                                 <td className="p-2">{a.name}</td>
                                 <td className="p-2">{a.nature}</td>
                                 <td className="p-2 flex gap-1">
-                                    <button className="px-3 py-2 bg-red-700 text-white rounded-lg cursor-pointer hover:bg-red-600"><Trash size={16}/></button>
+                                    <button onClick={() => handleDelete(a.id)} className="px-3 py-2 bg-red-700 text-white rounded-lg cursor-pointer hover:bg-red-600"><Trash size={16}/></button>
                                     <button className="px-3 py-2 bg-gray-900 text-white rounded-lg cursor-pointer hover:bg-gray-700"><SquarePen size={16}/></button>
                                 </td>
                             </tr>

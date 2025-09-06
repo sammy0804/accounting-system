@@ -162,6 +162,21 @@ app.get("/journals", async (_, res) => {
   }
 });
 
+
+//Deletes
+app.delete("/accounts/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log("DELETE /accounts/:id", id);
+  try {
+    const deleted = await prisma.account.delete({ where: { id } });
+    console.log("Deleted account:", deleted);
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Error deleting account:", err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`API corriendo en http://localhost:${PORT}`);
