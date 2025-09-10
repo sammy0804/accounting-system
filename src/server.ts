@@ -129,6 +129,19 @@ app.get("/accounts", async (_, res) => {
   }
 });
 
+app.get("/accounts/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const account = await prisma.account.findUnique({ where: { id } });
+    if (!account) {
+      return res.status(404).json({ error: "Cuenta no encontrada" });
+    }
+    res.json(account);
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+});
+
 // Endpoint para productos
 app.get("/products", async (_, res) => {
   try {
@@ -163,16 +176,42 @@ app.get("/journals", async (_, res) => {
 });
 
 
-//Deletes
+// DELETE
+// Endpoint para account
 app.delete("/accounts/:id", async (req, res) => {
   const { id } = req.params;
-  console.log("DELETE /accounts/:id", id);
   try {
-    const deleted = await prisma.account.delete({ where: { id } });
-    console.log("Deleted account:", deleted);
+    await prisma.account.delete({ where: { id } });
     res.json({ success: true });
   } catch (err) {
     console.error("Error deleting account:", err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// Endpoint para product
+app.delete("/products/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await prisma.product.delete({ where: { id } });
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Error deleting product:", err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+
+// PATCH
+// Endpoint para actualizar un account
+app.patch("/accounts/:id", async (req, res) => {
+  const { id } = req.params;
+  const { code, name, nature, isActive } = req.body;
+  try {
+    await prisma.account.update({ where: { id }, data: { code, name, nature, isActive } });
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Error updating account:", err);
     res.status(500).json({ error: String(err) });
   }
 });

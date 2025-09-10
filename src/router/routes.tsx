@@ -21,6 +21,7 @@ export function AppRoutes() {
 
 
             <Route path="/accounts" element={<AccountsList />} />
+            <Route path="/accounts/:id/edit" element={<NewAccount />} />
             <Route path="/accounts/new" element={<NewAccount />} />
 
             <Route path="/journal" element={<JournalEntriesList />} />

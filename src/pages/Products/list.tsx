@@ -10,7 +10,20 @@ export default function ProductsList() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    
+    const handleDelete = async (id: string) => {
+        if (!window.confirm("¿Seguro que deseas eliminar este producto?")) return;
+        try {
+            await Products.remove(id);
+            setItems(items.filter(a => a.id !== id));
+        } catch (err: unknown) {
+            if ((err as Error).message && (err as Error).message.includes("Foreign key constraint")) {
+                alert("No se puede eliminar este producto porque esta siendo utilizado en otros registros.");
+            } else {
+                alert("Error al eliminar el producto.");
+            }
+        }
+    };
+
     const load = useCallback(async () => {
         try {
             setLoading(true);
@@ -20,7 +33,7 @@ export default function ProductsList() {
         } catch (e: unknown) {
             setError((e as Error).message);
         } finally { setLoading(false); }
-    }, [ setLoading, setError, setItems]);
+    }, [setLoading, setError, setItems]);
 
     useEffect(() => { load(); }, [load]);
 
@@ -59,7 +72,9 @@ export default function ProductsList() {
                                 <td className="p-2 text-right">{Number(p.taxRate).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.price).toLocaleString()}</td>
                                 <td className="p-2 text-center">
-                                    <button className="px-3 py-2 bg-red-700 text-white rounded-lg cursor-pointer hover:bg-red-600"><Trash size={16}/></button>
+                                    <button onClick={() => handleDelete(p.id)} className="px-3 py-2 bg-red-700 text-white rounded-lg cursor-pointer hover:bg-red-600">
+                                        <Trash size={16} />
+                                    </button>
                                 </td>
                             </tr>
                         ))}

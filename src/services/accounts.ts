@@ -4,6 +4,8 @@ import type { Account } from "../types/types";
 
 export const Accounts = {
     list: () => http.get<Account[]>("/accounts"),
+    get : (id: string) => http.get<Account>(`/accounts/${id}`),
     create: (data: Partial<Account>) => http.post<Account>("/accounts", data),
-    delete: (id: number) => http.del<Account>(`/accounts/${id}`),
+    delete: (id: string) => http.del<Account>(`/accounts/${id}`),
+    update : (id: string, data: Partial<Account>) => http.patch<Account>(`/accounts/${id}`, data),
 };

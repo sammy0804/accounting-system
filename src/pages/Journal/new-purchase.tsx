@@ -59,7 +59,7 @@ export default function NewPurchase() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 max-w-xl">
+    <form onSubmit={onSubmit} className="space-y-4 max-w-xl p-6 rounded-lg border">
       <h2 className="text-2xl font-bold">Registrar compra</h2>
       {error && <div className="text-red-600">{error}</div>}
       {ok && <div className="text-green-700">{ok}</div>}
@@ -114,6 +114,7 @@ export default function NewPurchase() {
           >
             <option value="">— Seleccionar —</option>
             {accounts.map(a => (
+              a.isActive &&
               <option key={a.id} value={a.id}>{a.code} — {a.name}</option>
             ))}
           </select>

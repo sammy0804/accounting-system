@@ -22,14 +22,22 @@ export function Sidebar() {
                 </button>
             </div>
             <nav className="px-2 space-y-1">
-                <NavLink to="/dashboard" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Dashboard" : <span title="Dashboard"><ChartArea/></span>}</NavLink>
+                <NavLink to="/dashboard" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Dashboard" : <span title="Dashboard"><ChartArea /></span>}</NavLink>
                 {open && <div className="mt-2 text-xs uppercase tracking-wide text-gray-400 px-3">Admin</div>}
-                <NavLink to="/products" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Productos" : <span title="Productos"><Package/></span>}</NavLink>
-                <NavLink to="/accounts" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Cuentas" : <span title="Cuentas"><BriefcaseBusiness/></span>}</NavLink>
+                <NavLink to="/products" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Productos" : <span title="Productos"><Package /></span>}</NavLink>
+                <NavLink to="/accounts" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Cuentas" : <span title="Cuentas"><BriefcaseBusiness /></span>}</NavLink>
                 {open && <div className="mt-2 text-xs uppercase tracking-wide text-gray-400 px-3">Asientos contables</div>}
-                <NavLink to="/journal" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Diario" : <span title="Diario"><BookText/></span>}</NavLink>
-                <NavLink to="/journal/sale" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Nueva Venta" : <span title="Venta"><ShoppingCart/></span>}</NavLink>
-                <NavLink to="/journal/purchase" className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>{open ? "Nueva Compra" : <span title="Compra"><ScrollText/></span>}</NavLink>
+                <NavLink to="/journal" end className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>
+                    {open ? "Diario" : <span title="Diario"><BookText /></span>}
+                </NavLink>
+
+                <NavLink to="/journal/sale" end className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>
+                    {open ? "Nueva Venta" : <span title="Venta"><ShoppingCart /></span>}
+                </NavLink>
+
+                <NavLink to="/journal/purchase" end className={({ isActive }) => `${linkBase} ${isActive ? active : inactive}`}>
+                    {open ? "Nueva Compra" : <span title="Compra"><ScrollText /></span>}
+                </NavLink>
             </nav>
         </aside>
     );

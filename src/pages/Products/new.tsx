@@ -90,6 +90,7 @@ export default function ProductNew() {
                                 onChange={(e) => setForm({ ...form, [key]: e.target.value })}>
                                 <option value="">— Seleccionar —</option>
                                 {accounts.map(a => (
+                                    a.isActive &&
                                     <option key={a.id} value={a.id}>{a.code} — {a.name}</option>
                                 ))}
                             </select>
