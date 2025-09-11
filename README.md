@@ -137,3 +137,10 @@ npx prisma studio
 # Ejecutar api
 npm run api
 ```
+---
+
+### 📄 Licencia
+
+Este proyecto está bajo la licencia [MIT].  
+Esto significa que eres libre de usar, copiar, modificar y distribuir este software, siempre y cuando se mantenga la atribución a los autores originales.  
+
