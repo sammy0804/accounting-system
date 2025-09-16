@@ -4,6 +4,7 @@ import type { JournalEntry } from "../types/types";
 
 export const Journal = {
   list: () => http.get<JournalEntry[]>("/journals"),
+  delete: (id: string) => http.del<JournalEntry>(`/journals/${id}`),
   
   // registrar una COMPRA
   purchase: (data: {

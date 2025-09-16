@@ -201,6 +201,28 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
+// Endpoint para journal
+app.delete("/journals/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Eliminar primero las líneas relacionadas
+    await prisma.journalLine.deleteMany({
+      where: { entryId: id },
+    });
+
+    // Luego eliminar el asiento
+    await prisma.journalEntry.delete({
+      where: { id },
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Error deleting journal entry:", err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+
 
 // PATCH
 // Endpoint para actualizar un account

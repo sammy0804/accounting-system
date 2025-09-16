@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { JournalEntry, Product } from "../types/types";
 import { Products } from "../services/products";
 import { Journal } from "../services/journal";
+import { Card } from "../components";
 
 type KPI = {
   ventasNetas: number;
@@ -125,11 +126,11 @@ export default function Dashboard() {
     <div className="space-y-6">
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <Card title="Ventas netas" value={`$ ${money(kpis.ventasNetas)}`} />
-        <Card title="COGS" value={`$ ${money(kpis.cogs)}`} />
-        <Card title="Utilidad bruta" value={`$ ${money(kpis.utilidadBruta)}`} />
-        <Card title="IVA por pagar" value={`$ ${money(kpis.ivaPorPagar)}`} />
-        <Card title="Inventario" value={`$ ${money(kpis.valorInventario)}`} />
+        <Card title="Ventas netas" value={`$ ${money(kpis.ventasNetas)}`}  addClass="bg-green-600"/>
+        <Card title="COGS" value={`$ ${money(kpis.cogs)}`}  addClass="bg-red-600" />
+        <Card title="Utilidad bruta" value={`$ ${money(kpis.utilidadBruta)}`}addClass="bg-blue-600"/>
+        <Card title="IVA por pagar" value={`$ ${money(kpis.ivaPorPagar)}`} addClass="bg-yellow-600"/>
+        <Card title="Inventario" value={`$ ${money(kpis.valorInventario)}`} addClass="bg-purple-600"/>
       </div>
 
       {/* Tendencia simple (lista; puedes cambiar a gráfico luego) */}
@@ -174,15 +175,6 @@ export default function Dashboard() {
         </table>
       </div>
 
-    </div>
-  );
-}
-
-function Card({ title, value }: { title: string; value: string }) {
-  return (
-    <div className="p-4 border rounded-lg bg-white">
-      <div className="text-sm text-gray-600">{title}</div>
-      <div className="text-2xl font-bold">{value}</div>
     </div>
   );
 }
