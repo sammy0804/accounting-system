@@ -40,12 +40,17 @@ export default function NewSale() {
       if (!form.productId || !form.cashAccountId || !form.qty) {
         throw new Error("Producto, cantidad y cuenta de caja son requeridos");
       }
+      // Validar stock disponible
+      const producto = products.find(p => p.id === form.productId);
+      if (producto && Number(producto.qtyOnHand ?? 0) < Number(form.qty)) {
+        throw new Error("No hay suficiente stock para realizar la venta. Stock disponible: " + (producto.qtyOnHand ?? 0));
+      }
       // Si no hay referencia, se genera una aleatoriamente
-    let referencia = form.reference;
-    if (!referencia) {
-      const rand = Math.floor(1000 + Math.random() * 9000);
-      referencia = `REF-${Date.now()}-${rand}`;
-    }
+      let referencia = form.reference;
+      if (!referencia) {
+        const rand = Math.floor(1000 + Math.random() * 9000);
+        referencia = `REF-${Date.now()}-${rand}`;
+      }
       // unitPrice opcional: si no viene, backend usará product.price
       const payload = {
         productId: form.productId,
