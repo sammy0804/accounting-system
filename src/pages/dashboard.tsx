@@ -18,7 +18,7 @@ const money = (n: number) =>
 
 const r2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 const dateKey = (d: string | Date) =>
-  (typeof d === "string" ? new Date(d) : d).toISOString().slice(0, 10);
+  (typeof d === "string" ? new Date(d) : d).toLocaleDateString().slice(0, 10);
 
 export default function Dashboard() {
   const [products, setProducts] = useState<Product[]>([]);
