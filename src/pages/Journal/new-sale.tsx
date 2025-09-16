@@ -40,13 +40,19 @@ export default function NewSale() {
       if (!form.productId || !form.cashAccountId || !form.qty) {
         throw new Error("Producto, cantidad y cuenta de caja son requeridos");
       }
+      // Si no hay referencia, se genera una aleatoriamente
+    let referencia = form.reference;
+    if (!referencia) {
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      referencia = `REF-${Date.now()}-${rand}`;
+    }
       // unitPrice opcional: si no viene, backend usará product.price
       const payload = {
         productId: form.productId,
         qty: Number(form.qty),
         cashAccountId: form.cashAccountId,
         unitPrice: form.unitPrice === "" ? undefined : Number(form.unitPrice),
-        reference: form.reference || undefined,
+        reference: referencia || undefined,
         memo: form.memo || undefined,
       };
       await Journal.sale(payload);

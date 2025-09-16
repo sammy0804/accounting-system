@@ -17,7 +17,10 @@ export default function NewAccount() {
 
   // Cargar la cuenta si es edición
   useEffect(() => {
-    if (!isEdit || !id) return;
+    if (!isEdit || !id) {
+      setLoading(false);
+      return;
+    }
     (async () => {
       try {
         const acc = await Accounts.get(id);

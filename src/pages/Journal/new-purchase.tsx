@@ -40,12 +40,18 @@ export default function NewPurchase() {
       if (!form.productId || !form.paymentAccountId || !form.qty) {
         throw new Error("Producto, cantidad y cuenta de pago son requeridos");
       }
+       // Si no hay referencia, se genera una aleatoriamente
+    let referencia = form.reference;
+    if (!referencia) {
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      referencia = `REF-${Date.now()}-${rand}`;
+    }
       const payload = {
         productId: form.productId,
         qty: Number(form.qty),
         paymentAccountId: form.paymentAccountId,
         unitCost: form.unitCost === "" ? undefined : Number(form.unitCost),
-        reference: form.reference || undefined,
+        reference: referencia || undefined,
         memo: form.memo || undefined,
       };
       await Journal.purchase(payload);
