@@ -17,7 +17,7 @@ Incluye un modelo contable básico (cuentas, asientos, productos) y una semilla 
 
 ### 1. Clonar e instalar dependencias
 ```bash
-git clone (https://github.com/sammy0804/accounting-system.git)
+git clone https://github.com/sammy0804/accounting-system.git
 cd accounting-system
 npm install
 ```
@@ -38,6 +38,16 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_DB=accounting
 ```
+### 4. Levantar proyecto
+
+```bash
+# Ejecuta la api
+npm run api
+
+# Ejecuta el proyecto
+npm run dev
+```
+
 ---
 
 ### 🗄️ Migraciones con Prisma
@@ -79,6 +89,34 @@ Esto crea:
 
 ---
 
+
+### 📊 Funcionalidades principales
+
+#### 🛒 Productos
+- Crear, editar, listar productos con:
+  - Precio
+  - Costo
+  - IVA
+  - Cuentas contables asociadas
+
+#### 📚 Cuentas contables
+- Crear, editar, activar/desactivar y listar cuentas:
+  - Activo
+  - Pasivo
+  - Ingresos
+  - Gastos
+
+#### 🧾 Asientos (Journal)
+- Registro automático de **compras** y **ventas**
+- Balance entre **debe** y **haber** garantizado
+
+#### 📈 Dashboard
+- KPIs contables básicos
+- Tendencia de ventas / utilidad
+- Últimos asientos registrados
+
+---
+
 ### 📚 Comandos útiles
 ```bash
 # Levantar contenedor Postgres
@@ -95,4 +133,14 @@ npx prisma db seed
 
 # Ver base en navegador
 npx prisma studio
+
+# Ejecutar api
+npm run api
 ```
+---
+
+### 📄 Licencia
+
+Este proyecto está bajo la licencia [MIT].  
+Esto significa que eres libre de usar, copiar, modificar y distribuir este software, siempre y cuando se mantenga la atribución a los autores originales.  
+
