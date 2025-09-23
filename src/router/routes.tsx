@@ -18,6 +18,7 @@ export function AppRoutes() {
 
             <Route path="/products" element={<ProductsList />} />
             <Route path="/products/new" element={<ProductNew />} />
+            <Route path="/products/:id/edit" element={<ProductNew />} />
 
 
             <Route path="/accounts" element={<AccountsList />} />

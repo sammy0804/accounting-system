@@ -53,7 +53,7 @@ app.post("/journal/purchase", async (req, res) => {
         lines: {
           create: [
             { accountId: p.inventoryAccountId, debit: total, credit: 0, description: "Ingreso inventario" },
-            { accountId: paymentAccountId,     debit: 0,     credit: total, description: "Pago/por pagar" },
+            { accountId: paymentAccountId, debit: 0, credit: total, description: "Pago/por pagar" },
           ],
         },
       },
@@ -61,8 +61,8 @@ app.post("/journal/purchase", async (req, res) => {
     });
 
     // (opcional) actualizar cost estándar al último costo
-    await prisma.product.update({ 
-      where: { id: p.id }, 
+    await prisma.product.update({
+      where: { id: p.id },
       data: { qtyOnHand: r2(Number(p.qtyOnHand ?? 0) + Number(qty)), cost }
     });
 
@@ -85,21 +85,21 @@ app.post("/journal/sale", async (req, res) => {
     if (Number(p.taxRate) > 0 && !p.taxAccountId) return res.status(400).send("Falta cuenta de impuesto");
 
     const price = Number(unitPrice ?? p.price);
-    const cost  = Number(unitCostOverride ?? p.cost ?? 0);
-    const net   = r2(price * Number(qty));
-    const tax   = r2(net * Number(p.taxRate) / 100);
+    const cost = Number(unitCostOverride ?? p.cost ?? 0);
+    const net = r2(price * Number(qty));
+    const tax = r2(net * Number(p.taxRate) / 100);
     const gross = r2(net + tax);
-    const cogs  = r2(cost * Number(qty));
+    const cogs = r2(cost * Number(qty));
 
     const lines: { accountId: string, debit: number, credit: number, description: string }[] = [
-      { accountId: cashAccountId,      debit: gross, credit: 0,   description: "Cobro" },
-      { accountId: p.revenueAccountId, debit: 0,     credit: net, description: "Ingresos por venta" },
+      { accountId: cashAccountId, debit: gross, credit: 0, description: "Cobro" },
+      { accountId: p.revenueAccountId, debit: 0, credit: net, description: "Ingresos por venta" },
     ];
     if (tax > 0 && p.taxAccountId)
       lines.push({ accountId: p.taxAccountId, debit: 0, credit: tax, description: "IVA por pagar" });
     if (cogs > 0) {
-      lines.push({ accountId: p.cogsAccountId,      debit: cogs, credit: 0,   description: "COGS" });
-      lines.push({ accountId: p.inventoryAccountId, debit: 0,    credit: cogs, description: "Salida inventario" });
+      lines.push({ accountId: p.cogsAccountId, debit: cogs, credit: 0, description: "COGS" });
+      lines.push({ accountId: p.inventoryAccountId, debit: 0, credit: cogs, description: "Salida inventario" });
     }
 
     const entry = await prisma.journalEntry.create({
@@ -147,6 +147,19 @@ app.get("/products", async (_, res) => {
   try {
     const products = await prisma.product.findMany();
     res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.get("/products/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await prisma.product.findUnique({ where: { id } });
+    if (!product) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+    res.json(product);
   } catch (err) {
     res.status(500).json({ error: String(err) });
   }
@@ -234,6 +247,19 @@ app.patch("/accounts/:id", async (req, res) => {
     res.json({ success: true });
   } catch (err) {
     console.error("Error updating account:", err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// Endpoint para actualizar un product
+app.patch("/products/:id", async (req, res) => {
+  const { id } = req.params;
+  const { sku, name, cost, taxRate, inventoryAccountId, revenueAccountId, cogsAccountId, taxAccountId } = req.body;
+  try {
+    await prisma.product.update({ where: { id }, data: { sku, name, cost, taxRate, inventoryAccountId, revenueAccountId, cogsAccountId, taxAccountId } });
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Error updating product:", err);
     res.status(500).json({ error: String(err) });
   }
 });

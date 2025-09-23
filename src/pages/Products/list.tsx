@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Products } from "../../services/products";
 import type { Product } from "../../types/types";
-import { Trash } from "lucide-react";
+import { SquarePen, Trash } from "lucide-react";
 
 
 export default function ProductsList() {
     const [items, setItems] = useState<Product[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const nav = useNavigate();
 
     const handleDelete = async (id: string) => {
         if (!window.confirm("¿Seguro que deseas eliminar este producto?")) return;
@@ -71,9 +73,12 @@ export default function ProductsList() {
                                 <td className="p-2 text-right">{Number(p.cost ?? 0).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.taxRate).toLocaleString()}</td>
                                 <td className="p-2 text-right">{Number(p.price).toLocaleString()}</td>
-                                <td className="p-2 text-center">
+                                <td className="p-2 flex gap-1 justify-center">
                                     <button onClick={() => handleDelete(p.id)} className="px-3 py-2 bg-red-700 text-white rounded-lg cursor-pointer hover:bg-red-600">
                                         <Trash size={16} />
+                                    </button>
+                                    <button onClick={() => nav(`/products/${p.id}/edit`)} className="px-3 py-2 bg-gray-900 text-white rounded-lg cursor-pointer hover:bg-gray-700">
+                                        <SquarePen size={16} />
                                     </button>
                                 </td>
                             </tr>
