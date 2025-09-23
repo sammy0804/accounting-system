@@ -123,7 +123,7 @@ export default function ProductNew() {
                     </div>
                     <div>
                         <label className="block text-sm">Cantidad</label>
-                        <input disabled type="number" className="border rounded-lg px-3 py-2 w-full appearance-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-600 cursor-not-allowed"
+                        <input disabled type="number" className="border rounded-lg px-3 py-2 w-full appearance-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100 text-gray-600 cursor-not-allowed"
                             value={form.qtyOnHand} onChange={e => setForm({ ...form, qtyOnHand: Number(e.target.value) })} readOnly />
                     </div>
                     <div>
