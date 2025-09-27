@@ -6,6 +6,9 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+# ⚡ Generar Prisma Client antes del build
+RUN npx prisma generate
+
 RUN npm run build   # genera /dist con Vite
 
 # Etapa 2: backend + servir frontend

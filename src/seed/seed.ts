@@ -1,6 +1,6 @@
 // prisma/seed.ts
 
-import { AccountNature, PrismaClient } from "../generated/prisma";
+import { AccountNature, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
