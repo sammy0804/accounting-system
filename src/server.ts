@@ -10,10 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 // 👉 servir el frontend
-app.use(express.static(path.join(__dirname, "../dist")));
+app.use(express.static(path.join(__dirname, "client")));
 app.get("*", (_, res) => {
-  res.sendFile(path.join(__dirname, "../dist/index.html"));
+  res.sendFile(path.join(__dirname, "client/index.html"));
 });
+
 
 // helper redondeo 2 decimales
 const r2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;

@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "jsx": "react-jsx",        // ⬅️ Esto es lo que falta
-    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "jsx": "react-jsx",
+    "outDir": "dist",
+    "rootDir": "src",
     "esModuleInterop": true,
     "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "dist"
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
