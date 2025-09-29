@@ -2,6 +2,7 @@
   "name": "accounting-system",
   "private": true,
   "version": "0.0.0",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc -p tsconfig.server.json && vite build",
@@ -12,6 +13,7 @@
     "preview": "vite preview",
     "api": "tsx src/server.ts"
   },
+  "engines": { "node": ">=18 <21" },
   "prisma": {
     "seed": "tsx src/seed/seed.ts"
   },
