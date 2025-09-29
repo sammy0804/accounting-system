@@ -1,23 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "rootDir": "src",
     "outDir": "dist",
+    "module": "commonjs",
+    "target": "es2020",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "src/server.ts",
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/**/*.tsx",
-    "src/lib/http.ts",   // 👈 ignora http.ts
-    "src/services/**",   // 👈 ignora servicios frontend que importan http.ts
-    "src/components/**",
-    "src/pages/**",
-    "src/router/**"
-  ]
+  "include": ["src/server.ts"]
 }
