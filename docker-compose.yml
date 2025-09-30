@@ -30,19 +30,5 @@ services:
     depends_on:
       - db
 
-  backend:
-    build:
-      context: .       # Usa la carpeta raíz
-      dockerfile: Dockerfile
-    container_name: accounting_backend
-    restart: unless-stopped
-    environment:
-      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-      PORT: 3000
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-
 volumes:
-  pg_data:
+  pg_data: {}

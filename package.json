@@ -2,18 +2,14 @@
   "name": "accounting-system",
   "private": true,
   "version": "0.0.0",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.server.json && vite build",
-    "start": "node dist/server.js",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate deploy",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "api": "tsx src/server.ts"
   },
-  "engines": { "node": ">=18 <21" },
   "prisma": {
     "seed": "tsx src/seed/seed.ts"
   },
@@ -42,7 +38,7 @@
     "globals": "^16.3.0",
     "prisma": "^6.14.0",
     "tsx": "^4.20.5",
-    "typescript": "^5.8.3",
+    "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
   }
