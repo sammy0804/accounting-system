@@ -31,7 +31,9 @@ services:
       - db
 
   backend:
-    build: ./server
+    build:
+      context: .       # Usa la carpeta raíz
+      dockerfile: Dockerfile
     container_name: accounting_backend
     restart: unless-stopped
     environment:
@@ -41,17 +43,6 @@ services:
       - "3000:3000"
     depends_on:
       - db
-
-  frontend:
-    build: ./client
-    container_name: accounting_frontend
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    environment:
-      VITE_API_URL: http://backend:3000
-    depends_on:
-      - backend
 
 volumes:
   pg_data:
